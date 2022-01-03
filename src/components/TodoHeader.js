@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import styled from "styled-components";
 const TodoHeaderBlock = styled.div`
     padding:48px 32px 24px;
@@ -19,9 +20,15 @@ const TodoHeaderBlock = styled.div`
         font-weight:bold;
     }
 `;
-export default function TodoHeader({todoList}){
+function TodoHeader({todoList}){
     //할 일 몇개 남았는지 체크해주는 함수
-    const undoneTasks = todoList.filter(todo => !todo.idDone );
+    function countTodo(todoList){
+        console.log('할 일을 세는 중....');
+        return todoList.filter(todo => !todo.idDone );
+    }
+    const undoneTasks = useMemo(()=>(countTodo(todoList)),[todoList]);
+    
+    // const undoneTasks = todoList.filter(todo => !todo.idDone );
     
     //날짜 구현
     const today = new Date();
@@ -41,3 +48,4 @@ export default function TodoHeader({todoList}){
         </TodoHeaderBlock>
     );
 }
+export default React.memo(TodoHeader);

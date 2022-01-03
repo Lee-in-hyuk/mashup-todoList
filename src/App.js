@@ -3,8 +3,14 @@ import TodoTemplate from './components/TodoTemplate';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
 import TodoInsert from './components/TodoInsert';
-import { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import './App.css';
+
+const GlobalStyle = createGlobalStyle`
+    body {
+      background: #e9ecef;
+    }
+  `;
 
 function App() {
   //항목들 상태관리
@@ -33,15 +39,23 @@ function App() {
     
   //인풋입력값 상태관리
   const [ desc, setDesc ] = useState("");
+
   //항목 id 관리
   const idNum = useRef(5);
 
-  function onChange(e){
+  const onChange = useCallback((e)=>{
     const inputValue = e.target.value;
     setDesc(inputValue);
-  }
+    console.log(desc);
+  }, [desc])
 
-  function onCreatelist(e){
+  // function onChange(e){
+  //   const inputValue = e.target.value;
+  //   setDesc(inputValue);
+  //   console.log(desc);
+  // }
+
+  const onCreatelist = useCallback((e)=>{
     e.preventDefault();
     //새로운 객체 만들기
     const list = {
@@ -55,7 +69,23 @@ function App() {
     ])
     //idNum값을 1씩 추가하기
     idNum.current = idNum.current+1;
-  }
+  },[todoList,desc,idNum])
+
+  // function onCreatelist(e){
+  //   e.preventDefault();
+  //   //새로운 객체 만들기
+  //   const list = {
+  //     id:idNum.current,
+  //     text:desc,
+  //     idDone: false
+  //   }
+  //   //todoList배열 업데이트(새로운 객체 추가하기)
+  //   setTodoList([
+  //     ...todoList,list
+  //   ])
+  //   //idNum값을 1씩 추가하기
+  //   idNum.current = idNum.current+1;
+  // }
 
   //해당 id항목 삭제하기
   function onRemove(id){
@@ -68,17 +98,8 @@ function App() {
     setTodoList(todoList.map(todo=>todo.id === id ? { ...todo, idDone: !todo.idDone } : todo));
   }
 
-  const GlobalStyle = createGlobalStyle`
-    body {
-      background: #e9ecef;
-    }
-  `;
-
   return (
     <div className="App">
-      <div>
-        <div>바로 수정하기</div>
-      </div>
       <GlobalStyle/>
       <TodoTemplate>
         <TodoHeader todoList={todoList}/>
@@ -89,4 +110,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

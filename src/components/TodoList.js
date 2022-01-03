@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
+import React from "react";
 const TodoListBlock = styled.div`
     flex:1;
     padding: 20px 32px 48px;
     overflow-y:auto;
 `;
-export default function TodoList({todoList, onRemove, onToggle}){
+function TodoList({todoList, onRemove, onToggle}){
     
     return(
         <div>
@@ -21,3 +22,4 @@ export default function TodoList({todoList, onRemove, onToggle}){
         </div>
     );
 }
+export default React.memo(TodoList);

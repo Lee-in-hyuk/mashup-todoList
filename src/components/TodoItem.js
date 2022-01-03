@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from 'react-icons/md';
+import React from "react";
 const CheckCircle = styled.div`
     width:32px;
     height:32px;
@@ -48,7 +49,7 @@ const TodoItemBlock = styled.div`
     }
 `;
 
-export default function TodoItem({text,idDone, onToggle, onRemove, id}){
+function TodoItem({text,idDone, onToggle, onRemove, id}){
     
     return(
         <TodoItemBlock>
@@ -63,3 +64,4 @@ export default function TodoItem({text,idDone, onToggle, onRemove, id}){
         </TodoItemBlock>
     );
 }
+export default React.memo(TodoItem);

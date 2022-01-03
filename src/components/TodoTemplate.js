@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 // 스타일이 적용된 컴포넌트 만들기
 const TodoTemplateBlock = styled.div`
     width: 512px;
@@ -11,9 +12,10 @@ const TodoTemplateBlock = styled.div`
     display:flex;
     flex-direction:column;
 `;
-export default function TodoTemplate({children}){
+function TodoTemplate({children}){
     
     return(
         <TodoTemplateBlock>{children}</TodoTemplateBlock>
     );
 }
+export default React.memo(TodoTemplate);

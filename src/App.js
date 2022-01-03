@@ -76,7 +76,9 @@ function App() {
 
   return (
     <div className="App">
-      <div><h1>수정한거</h1></div>
+      <div>
+        <div>바로 수정하기</div>
+      </div>
       <GlobalStyle/>
       <TodoTemplate>
         <TodoHeader todoList={todoList}/>

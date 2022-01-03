@@ -76,6 +76,7 @@ function App() {
 
   return (
     <div className="App">
+      <div><h1>수정한거</h1></div>
       <GlobalStyle/>
       <TodoTemplate>
         <TodoHeader todoList={todoList}/>
